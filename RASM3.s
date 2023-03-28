@@ -1,7 +1,7 @@
-// Programer: Alan Banos and Andrew Cesario
+// Programer: Andrew Cesario, Alan Banos
 // RASM3
 // Purpose: Test functions for 3 strings
-// Author: Andrew Cesario, Alan
+// Author: Andrew Cesario, Alan Banos
 // Date: 3/24/2023
 
 // Define a constant named SIZE with a value of 21
@@ -304,7 +304,7 @@ main:
     str x0, [x3]           //Store the value of register x0 into the memory location pointed to by register x3
 
 //convert value in szResult into string
-    ldr x1, =szResult    //Load the address of szResult into register x1
+    ldr x1, =szResult     //Load the address of szResult into register x1
     bl int64asc            //Call the subroutine int64asc to convert the value stored in szResult into a string
 
 //output string
@@ -388,6 +388,9 @@ main:
     ldr x0, =s1b          // "Cot in the hot."  
     bl String_toLowerCase  //call lowercase function and return in x0
     bl putstring          //call putstring function
+	
+	ldr x0, =szQuote
+	bl putstring
 
     ldr x0, =chCr         //Load the address of the newline character into register x0
     bl putch              //Call the subroutine putch to output the newline character
@@ -400,6 +403,9 @@ main:
     ldr x0, =s1b           // "Cot in the hot."  
     bl String_toUpperCase   //capitalize the string 
     bl putstring           //call the string
+	
+	ldr x0, =szQuote
+	bl putstring
 
    ldr x0, =chCr         //Load the address of the newline character into register x0
     bl putch              //Call the subroutine putch to output the newline character
@@ -421,6 +427,9 @@ main:
     mov x3, x3            //lenght of s1b
     mov x4, x4            //length of szSpace
     bl String_concat       //call conact; which also outputs 
+	  
+	ldr x0, =szQuote
+	bl putstring
 	
    ldr x0, =chCr         //Load the address of the newline character into register x0
     bl putch              //Call the subroutine putch to output the newline character
@@ -452,32 +461,32 @@ s1:              .asciz   "Cat in the hat."
 s2:              .asciz   "Green eggs and ham."
 s3:              .asciz   "cat in the hat."
 s4:              .skip    25
-s1Length:        .asciz   "s1.length() = "
-s2Length:        .asciz   "s2.length() = "
-s3Length:        .asciz   "s3.length() = "
-szEquals1:       .asciz   "String_equals(s1,s3) = "
-szEquals2:       .asciz   "String_equals(s1,s1) = "
-szEqualsIgnore1: .asciz    "String_equalsIgnoreCase(s1,s3) = "
-szEqualsIgnore2: .asciz    "String_equalsIgnoreCase(s1,s2) = "
-szCopy:          .asciz  "s4 = String_copy(s1)\n"
-s1Copy:          .asciz  "s1 = "
-s4Copy:          .asciz  "s4 = "
-szSubstring1:    .asciz    "String_substring_1(s3,4,14) = \""
-szSubstring2:    .asciz    "String_substring_2(s3,7) = \""
-szCharAt:        .asciz    "String_charAt(s2,4) = \'"
-szStartsWith1:   .asciz    "String_startsWith_1(s1,11,\"hat.\") = "
-szStartsWith2:   .asciz    "String_startsWith_2(s1,\"Cat\") = "
-szEndsWith:      .asciz    "String_endsWith(s1,\"in the hat.\") = "
-szIndex1:        .asciz    "String_indexOf_1(s2,\'g\') = "
-szIndex2:        .asciz    "String_indexOf_2(s2,\'g\',9) = "
-szIndex3:        .asciz    "String_indexOf_3(s2,\"eggs\") = "
-szLastIndex1:    .asciz    "String_lastIndexOf_1(s2,\'g\') = "
-szLastIndex2:    .asciz    "String_lastIndexOf_2(s2,\'g\',6) = "
-szLastIndex3:    .asciz    "String_lastIndexOf_3(s2,\"egg\") = "
-szReplace:       .asciz    "String_replace(s1,\'a\',\'o\') = \""
-szLower:         .asciz    "String_toLowerCase(s1) = \""
-szUpper:         .asciz    "String_toUpperCase(s1) = \""
-szConcat:        .asciz    "String_concat(s1, \" \");\nString_concat(s1, s2) = \""
+s1Length:        .asciz   "1.s1.length() = "
+s2Length:        .asciz   "  s2.length() = "
+s3Length:        .asciz   "  s3.length() = "
+szEquals1:       .asciz   "2. String_equals(s1,s3) = "
+szEquals2:       .asciz   "3. String_equals(s1,s1) = "
+szEqualsIgnore1: .asciz    "4. String_equalsIgnoreCase(s1,s3) = "
+szEqualsIgnore2: .asciz    "5. String_equalsIgnoreCase(s1,s2) = "
+szCopy:          .asciz  "6. s4 = String_copy(s1)\n"
+s1Copy:          .asciz  "   s1 = "
+s4Copy:          .asciz  "   s4 = "
+szSubstring1:    .asciz    "7. String_substring_1(s3,4,14) = \""
+szSubstring2:    .asciz    "8. String_substring_2(s3,7) = \""
+szCharAt:        .asciz    "9. String_charAt(s2,4) = \'"
+szStartsWith1:   .asciz    "10. String_startsWith_1(s1,11,\"hat.\") = "
+szStartsWith2:   .asciz    "11. String_startsWith_2(s1,\"Cat\") = "
+szEndsWith:      .asciz    "12. String_endsWith(s1,\"in the hat.\") = "
+szIndex1:        .asciz    "13. String_indexOf_1(s2,\'g\') = "
+szIndex2:        .asciz    "14. String_indexOf_2(s2,\'g\',9) = "
+szIndex3:        .asciz    "15. String_indexOf_3(s2,\"eggs\") = "
+szLastIndex1:    .asciz    "16. String_lastIndexOf_1(s2,\'g\') = "
+szLastIndex2:    .asciz    "17. String_lastIndexOf_2(s2,\'g\',6) = "
+szLastIndex3:    .asciz    "18. String_lastIndexOf_3(s2,\"egg\") = "
+szReplace:       .asciz    "19. String_replace(s1,\'a\',\'o\') = \""
+szLower:         .asciz    "20. String_toLowerCase(s1) = \""
+szUpper:         .asciz    "21. String_toUpperCase(s1) = \""
+szConcat:        .asciz    "22. String_concat(s1, \" \");\nString_concat(s1, s2) = \""
 
 szStarts1:       .asciz   "hat."
 szStarts2:       .asciz   "Cat"
