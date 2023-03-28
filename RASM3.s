@@ -1,4 +1,4 @@
-// Programer: Andrew Cesario
+// Programer: Alan Banos and Andrew Cesario
 // RASM3
 // Purpose: Test functions for 3 strings
 // Author: Andrew Cesario, Alan
