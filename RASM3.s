@@ -1,7 +1,7 @@
 // Programer: Andrew Cesario
 // RASM3
 // Purpose: Test functions for 3 strings
-// Author: Andrew Cesario, Allan
+// Author: Andrew Cesario, Alan
 // Date: 3/24/2023
 
 // Define a constant named SIZE with a value of 21
@@ -12,6 +12,11 @@
 
 // _start label marks the beginning of the program
 main:
+
+//header
+    ldr     x0, =szHeader   //load  address of header into x0
+    bl      putstring       //call function with szHeader as argument
+
 // prompt #1
     ldr     x0, =s1           // Load the address of string 1 into x0
     bl      string_length    // Call the function string_length with s1 as argument
@@ -217,218 +222,210 @@ main:
  
 // prompt #11   
 
-	ldr x0, =szIndex1  //"String_indexOf_1(s2,\'g\') = "
-	bl putstring  //branch to putstring to print
+    ldr x0, =szIndex1 	    //"String_indexOf_1(s2,\'g\') = "
+    bl putstring  	    //branch to putstring to print
 	
-	//outpute the index and return in x0
-	ldr x1, =s2  //string
-	ldr x2, =arg_13   //char
-	bl String_indexOf_1 //branch to return index into x0
+//outpute the index and return in x0
+    ldr x1, =s2  	    //string
+    ldr x2, =arg_13         //char
+    bl String_indexOf_1     //branch to return index into x0
 	
-	//Store x0 in szResult
-	ldr x3, =szResult //load address into x3
-	str x0, [x3]   //store value of index inx0 into =szResult
+//Store x0 in szResult
+    ldr x3, =szResult       //load address into x3
+    str x0, [x3]            //store value of index inx0 into =szResult
 	
-	//convert value in szResult into string
-	ldr x1, =szResult  //load address in x1
-	bl int64asc  //convert contents of address into asc
+//convert value in szResult into string
+    ldr x1, =szResult       //load address in x1
+    bl int64asc             //convert contents of address into asc
 	
-	//output string
-	ldr x0, =szResult  //load address into x0
-	bl putstring   //print out result, index
+//output string
+    ldr x0, =szResult 	   //load address into x0
+    bl putstring   	   //print out result, index
 	
-	//skip a line in the end
-    ldr     x0, =chCr //loads carriage return
-    bl      putch  //print carriage return
+//skip a line in the end
+    ldr     x0, =chCr 	   //loads carriage return
+    bl      putch  	   //print carriage return
     
 // prompt #12
     ldr     x0, =szIndex2  //load adrees in x0
-    bl      putstring  //print out Index
+    bl      putstring  	   //print out Index
 	
-	ldr x0, =s2  //string
-	ldr x1, =arg_13   //char
-	mov x2, #9  //passing int like this fixed segmentation fault
-	bl String_indexOf_2  //returns value in x0
+    ldr x0, =s2  	   //loads address of string in x0
+    ldr x1, =arg_13        //char as an argument is passed into functuon
+    mov x2, #9  	   //passing int like this fixed segmentation fault
+    bl String_indexOf_2    //returns value in x0
 	
-	ldr x3, =szResult //load in szResult
-	str x0, [x3]   //Store x0 in szResult
+    ldr x3, =szResult      //load in szResult
+    str x0, [x3]           //Store x0 in szResult
 	
-	ldr x1, =szResult  //load address szResult
-	bl int64asc //convert value in szResult into string
+    ldr x1, =szResult     //load address szResult
+    bl int64asc           //convert value in szResult into string
 	
-	ldr x0, =szResult  //load address
-	bl putstring /output string
+    ldr x0, =szResult     //load address
+    bl putstring	  //output string
 	
-    ldr     x0, =chCr
-    bl      putch
+    ldr     x0, =chCr     //Load the address of chCr into register 0
+    bl      putch	  //branch to putstring function with chCr as parameter
     
 // prompt #13  //ring is returdned not a int
-    ldr     x0, =szIndex3
-    bl      putstring
+    ldr     x0, =szIndex3 //load addrees of szIndex3 into x0
+    bl      putstring     //branch to putsring function
     
-	//outpute the index and return in x0
-	ldr x0, =s2b  //string
-	ldr x1, =szEggs //substring
-	bl String_indexOf_3 //return value in x0
+//outpute the index and return in x0
+    ldr x0, =s2b         //string is loaded as parameter
+    ldr x1, =szEggs 	 //substring
+    bl String_indexOf_3  //return value in x0
 	
-	ldr x3, =szResult //loadd adress
-	str x0, [x3]  //Store x0 in szResult
+    ldr x3, =szResult    //loadd adress pf szResult into x0
+    str x0, [x3]  	//Store x0 in szResult
 	
-	//convert value in szResult into string
-	ldr x1, =szResult
-	bl int64asc //call the function
+//convert value in szResult into string
+    ldr x1, =szResult    //loadd adress pf szResult into x0
+    bl int64asc		 //call the function with szResult as paarmeter
 	
-	//output string
-	ldr x0, =szResult //load adress into x0 for putstring
-	bl putstring  //output result
+//output string
+    ldr x0, =szResult	 //load adress into x0 for putstring
+    bl putstring  	 //output result
 	
-    ldr     x0, =chCr //load chCr
-    bl      putch //carriage return
+    ldr     x0, =chCr	 //load chCr
+    bl      putch	 //carriage return
     
 	
 // prompt #14
-    ldr     x0, =szLastIndex1
-    bl      putstring  
+    ldr     x0, =szLastIndex1   //load address of szLast Index1 into x0
+    bl      putstring           //call the putsring function
 	
-	ldr x0, =s2  //string "Green eggs and ham."
-	ldr x2, =arg_13  //char 'g'
-	bl String_lastIndexOf_1 //returns value in x0
+    ldr x0, =s2                //string "Green eggs and ham."
+    ldr x2, =arg_13            //char 'g'
+    bl String_lastIndexOf_1    //returns value in x0
 	
-    //Store x0 in szResult
-	ldr x3, =szResult
-	str x0, [x3]
-	
-	//convert value in szResult into string
-	ldr x1, =szResult
-	bl int64asc
-	
-	//output string
-	ldr x0, =szResult
-	bl putstring
-	
-    ldr     x0, =chCr
-    bl      putch
-	
+//Store x0 in szResult
+    ldr x3, =szResult       //Load the address of szResult into register x3
+    str x0, [x3]           //Store the value of register x0 into the memory location pointed to by register x3
+
+//convert value in szResult into string
+    ldr x1, =szResult    //Load the address of szResult into register x1
+    bl int64asc            //Call the subroutine int64asc to convert the value stored in szResult into a string
+
+//output string
+    ldr x0, =szResult      //Load the address of szResult into register x0
+    bl putstring           //Call the subroutine putstring to output the string stored in szResult
+
+//Output a newline character
+    ldr x0, =chCr          //Load the address of the newline character into register x0
+    bl putch               //Call the subroutine putch to output the newline character
+
 // prompt #15
-    ldr     x0, =szLastIndex2
-    bl      putstring
-	
-	ldr x0, =s2  //string
-	ldr x1, =arg_13 
-	mov x2, #6   //int
-	bl String_lastIndexOf_2  //returns value in x0
-	
-    //Store x0 in szResult
-	ldr x3, =szResult
-	str x0, [x3]
-	
-	//convert value in szResult into string
-	ldr x1, =szResult
-	bl int64asc
-	
-	//output string
-	ldr x0, =szResult
-	bl putstring
-	
-	ldr     x0, =chCr
-    bl      putch
-    
+    ldr x0, =szLastIndex2  //Load the address of szLastIndex2 into register x0
+    bl putstring           //Call the subroutine putstring to output the string stored in szLastIndex2
+
+    ldr x0, =s2             //Load the address of s2 into register x0 (string argument for the String_lastIndexOf_2 function
+    ldr x1, =arg_13         //Load the address of arg_13 into register x1 (string argument for the String_lastIndexOf_2 function)
+    mov x2, #6              //Load the value 6 into register x2 (integer argument for the String_lastIndexOf_2 function)
+    bl String_lastIndexOf_2  //Call the subroutine String_lastIndexOf_2, which returns the last index of the substring s2 in the string arg_13
+			    //The result is stored in register x0
+
+    ldr x3, =szResult      //Load the address of szResult into register x3
+    str x0, [x3]           //Store the value of register x0 into the memory location pointed to by register x3
+
+    ldr x1, =szResult     //Load the address of szResult into register x1
+    bl int64asc           //Call the subroutine int64asc to convert the value stored in szResult into a string
+
+    ldr x0, =szResult     //Load the address of szResult into register x0
+    bl putstring          //Call the subroutine putstring to output the string stored in szResult
+
+    ldr x0, =chCr         //Load the address of the newline character into register x0
+    bl putch              //Call the subroutine putch to output the newline character
+
 // prompt #16
-    ldr     x0, =szLastIndex3
-    bl      putstring
-	
-	//outpute the index and return in x0
-	//since im loading them correctly it has to be the functions thats fucked
-	ldr x0, =s2b  //string
-	ldr x1, =szEggs //substring
-	bl String_indexOf_3 //return value in x0
-	
-	
-	ldr x3, =szResult  //load in szResult
-	str x0, [x3]  //Store x0 in szResult  
-	
-	ldr x1, =szResult//convert value in szResult into string 
-	bl int64asc  //call int64asc
-	
-	//output string
-	ldr x0, =szResult  //load in szResukt
-	bl putstring  //print it out
-	
-    ldr     x0, =chCr  //carriage return
-    bl      putch  //branch to putch subroutine
-    
-    
-// prompt #17  //idk y it doesnt print
-
-    ldr     x0, =szReplace
-    bl      putstring
-	
-	//ldr x0 =sla// "Cat in the hat"
-	//ldr x1 =arg_17a //'a'
-	//ldr x2 =arg_17b  //'o'
-	//bl String_replace   //x0 holds new string
-	//bl putstring //prints it out
+    ldr x0, =szLastIndex3   //Load the address of the szLaststring3 into register x0
+    bl      putstring        //Call the subroutine putstring to output the newline character
 
 
-	ldr x0 =s1z //load in s1z
-	bl putstring  //print it out
+    ldr x0, =s2b          // Load the address of the string "s2b" into register x0 
+    ldr x1, =szEggs       // Load the address of the string "s2b" into register x0
+    bl String_indexOf_3   // Call the function "String_indexOf_3" to find the index of the substring in the string
 	
-	ldr x0 =szQuote  //" " 
-	bl putstring  //branch
+    ldr x3, =szResult     // Load the address of the variable "szResult" into register x3
+    str x0, [x3]          // Store the value in x0 (which contains the index of the substring) into the variable "szResult"
 	
-    ldr     x0, =chCr  //carriage return
-    bl      putch  //branch to putch subroutine
+   ldr x1, =szResult      //convert value in szResult into string 
+   bl int64asc           //call int64asc
+	
+  //output string
+    ldr x0, =szResult     // Load the address of the variable "szResult" into register x0
+    bl putstring          //Call the subroutine putstring to output it
+	
+    ldr x0, =chCr         //Load the address of the newline character into register x0
+    bl putch              //Call the subroutine putch to output the newline character
       
-// prompt #18   
+// prompt #17 
+
+    ldr     x0, =szReplace // Load the address of the variable "szReplace" into register x0
+    bl      putstring      // //Call the subroutine putstring to output it
+	
+    //ldr x0 =sla       // "Cat in the hat"
+    //ldr x1 =arg_17a    //'a'
+    //ldr x2 =arg_17b    //'o'
+    //bl String_replace   //x0 holds new string
+    //bl putstring      //prints it out
+
+
+    ldr x0, =s1z       // Load the address of a string called s1z into register x0
+    bl putstring       // Call a subroutine called putstring to print the string in s1z
+	
+    ldr x0, =szQuote  // Load the address of a string containing a single quotee into register x0
+    bl putstring     // Call a subroutine called putstring to print the string in szQuote
+	
+    ldr x0, =chCr         //Load the address of the newline character into register x0
+    bl putch              //Call the subroutine putch to output the newline character
+      
+// prompt #18   :)
     ldr     x0, =szLower  //load address
-    bl      putstring //branch
+    bl      putstring     //branch
 	
 	
-	ldr x0, =s1b // "Cot in the hot."  
-	bl String_toLowerCase  //call lowercase function and return in x0
-	bl putstring //call putstring function
+    ldr x0, =s1b          // "Cot in the hot."  
+    bl String_toLowerCase  //call lowercase function and return in x0
+    bl putstring          //call putstring function
 
-    ldr     x0, =chCr //carriage return
-    bl      putch  //call putch
+    ldr x0, =chCr         //Load the address of the newline character into register x0
+    bl putch              //Call the subroutine putch to output the newline character
         
-// prompt #19 
-    ldr     x0, =szUpper  //load szUpper into x0
-    bl      putstring  //call function
+// prompt #19 :)
+    ldr     x0, =szUpper   //load szUpper into x0
+    bl      putstring      //call function
 	
 	
-	ldr x0, =s1b // "Cot in the hot."  
-	bl String_toUpperCase   //capitalize the string 
-	bl putstring  //call the string
+    ldr x0, =s1b           // "Cot in the hot."  
+    bl String_toUpperCase   //capitalize the string 
+    bl putstring           //call the string
 
-    ldr     x0, =chCr  //carriage return
-    bl      putch  //link putch
+   ldr x0, =chCr         //Load the address of the newline character into register x0
+    bl putch              //Call the subroutine putch to output the newline character
         
-// prompt #20  //gonna output from within subroutine
+// prompt #20  :)
     ldr     x0, =szConcat  //load concat
-    bl      putstring  //branch function
+    bl      putstring      //branch function
 	
-	ldr x0, =s1b //load string
-	bl String_length //return string length into x0
-	mov x3, x0 //move x0 length into x3
+    ldr x0, =s1b           //load string
+    bl String_length       //return string length into x0
+    mov x3, x0             //move x0 length into x3
 	
-	ldr x0, =szSpace  //load szSpeace
-	bl String_length  //return string length to x0
-	mov x4, x0 //move x0 into x4
+    ldr x0, =szSpace       //load szSpeace
+    bl String_length       //return string length to x0
+    mov x4, x0             //move x0 into x4
 	
-	ldr x1, =s1b  //load label
-	ldr x2, =szSpace  //loadl label as argument
-	mov x3, x3  //lenght of s1b
-	mov x4, x4  //length of szSpace
-	bl String_concat //call conact; which also outputs 
+    ldr x1, =s1b          //load label
+    ldr x2, =szSpace       //loadl label as argument
+    mov x3, x3            //lenght of s1b
+    mov x4, x4            //length of szSpace
+    bl String_concat       //call conact; which also outputs 
 	
-    ldr     x0, =chCr //carriage return
-    bl      putch  //branch to putch
+   ldr x0, =chCr         //Load the address of the newline character into register x0
+    bl putch              //Call the subroutine putch to output the newline character
         
     b end
-
-
-
-
 
 
 // Output for true and false
@@ -491,19 +488,19 @@ szSingle:        .asciz "\'"
 szTrue:          .asciz "TRUE\n"
 szFalse:         .asciz "FALSE\n"
 chCr:            .byte 10
-
 //Alan stuff
 arg_13: .byte 'g'   
 szResult: .space 21 //holds string conversions and outputs them; for all indexs
 s1a: .asciz "Cat in the hat"
 s1b: .asciz "Cot in the hot"
-s1z .asciz "Cot in the hot"
+s1z: .asciz "Cot in the hot"
 s2b:              .asciz   "Green eggs and ham."
 szSpace: .asciz " "
 szEggs: .asciz "eggs"
 arg_17a: .byte 'a'
 arg_17b: .byte 'b'
 
+szHeader: .asciz "Name: Alan & Andrew \nProgram: RASM3 \nClass: CS3B \nDate: 3/25/2023 \nS1 = Cat in the hat. \nS2 = Green eggs and ham \nS3 = cat in the hat \n\n"
 
 
 
